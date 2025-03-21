@@ -1,5 +1,5 @@
 import usermodel from "../models/usermodel.js";
-import bcrypt from "bcrypt";
+import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import razorpay from "razorpay";
 import transactionModel from "../models/transactionmodel.js";
@@ -10,8 +10,7 @@ const registerUser = async (req, res) => {
     if (!name || !email || !password) {
       return res.json({ success: false, message: "Missing Details" });
     }
-    const salt = await bcrypt.genSalt(10);
-    const hashedPassword = await bcrypt.hash(password, salt);
+    const hashedPassword = await bcrypt.hash(password, 10);
 
     const userData = {
       name,
